@@ -5,7 +5,7 @@ from datetime import datetime
 import yaml
 
 class IWatchSimulator:
-    def _init_(self, config_path):
+    def __init__(self, config_path):
         with open(config_path, 'r') as stream:
             self.config = yaml.safe_load(stream)
         self.dict_dt = {}
