@@ -8,13 +8,13 @@ from iwatch_simulator import IWatchSimulator
 
 class MQTTPublisher:
 
-    def __init__(self, config_path, broker_ip, broker_port, topic, username, password):
+    def __init__(self, config_path, broker_ip, broker_port, thing_id, topic, username, password):
         self.simulator = IWatchSimulator(config_path)
         self.client = mqtt.Client()
         self.broker_ip = broker_ip
         self.broker_port = broker_port
-        #self.thing_id = thing_id
-        #self.org_name, self.thing = thing_id.split(':')
+        self.thing_id = thing_id
+        self.org_name, self.thing = thing_id.split(':')
         self.topic = topic
         self.username = username
         self.password = password
@@ -46,11 +46,11 @@ class MQTTPublisher:
 
     def send_data_to_ditto(self, iwatch_data):
         ditto_data = {
-            "topic": "org.Iotp2c/iwatch/things/twin/commands/modify",
+            "topic": f"{self.org_name}/{self.thing}/things/twin/commands/modify",
             "path": "/",
             "value": {
-                "thingId": "org.Iotp2c:iwatch",
-                "policyId": "org.Iotp2c:policy",
+                "thingId": self.thing_id,
+                "policyId": f"{self.org_name}:policy",
                 "definition": "https://raw.githubusercontent.com/bernar0507/Eclipse-Ditto-MQTT-iWatch/main/iwatch/wot/iwatch.tm.jsonld",
                 "attributes": {
                     "heart_rate": iwatch_data['heart_rate'],
@@ -80,5 +80,5 @@ if __name__ == '__main__':
     MQTT_TOPIC = f"{THING_ID}/things/twin/commands/modify"
     CONFIG_PATH = "config/iwatch_config.yaml"
     broker_ip = socket.gethostbyname("mosquitto")
-    publisher = MQTTPublisher(CONFIG_PATH, broker_ip, MQTT_BROKER_PORT, MQTT_TOPIC, 'ditto', 'ditto')
+    publisher = MQTTPublisher(CONFIG_PATH, broker_ip, MQTT_BROKER_PORT, THING_ID, MQTT_TOPIC, 'ditto', 'ditto')
     publisher.start()
