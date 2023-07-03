@@ -76,7 +76,7 @@ class MQTTPublisher:
 
 if __name__ == '__main__':
     MQTT_BROKER_PORT = 8883
-    THING_ID = "org.Iotp2c:iwatch"
+    THING_ID = f"org.Iotp2c:{sys.argv[1]}" if len(sys.argv) > 1 else "org.Iotp2c:iwatch"
     MQTT_TOPIC = f"{THING_ID}/things/twin/commands/modify"
     CONFIG_PATH = "config/iwatch_config.yaml"
     broker_ip = socket.gethostbyname("mosquitto")
