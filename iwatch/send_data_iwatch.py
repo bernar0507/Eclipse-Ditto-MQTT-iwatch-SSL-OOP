@@ -3,6 +3,7 @@ import json
 import time
 import socket
 import ssl
+import sys
 from iwatch_simulator import IWatchSimulator
 
 
