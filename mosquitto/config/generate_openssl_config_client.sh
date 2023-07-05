@@ -1,12 +1,6 @@
 #!/bin/bash
 
 # Set variables
-COUNTRY="PT" 
-STATE="MAFRA"
-CITY="LISBON"
-ORGANIZATION="My Company"
-ORG_UNIT="IT Department"
-COMMON_NAME="iwatch Client"
 IP_ADDRESS=$(hostname -i | awk '{print $1}')
 
 # Generate the OpenSSL configuration file
