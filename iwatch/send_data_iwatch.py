@@ -26,9 +26,9 @@ class MQTTPublisher:
         self.client.on_disconnect = self.on_disconnect
         self.client.on_publish = self.on_publish
         self.client.on_message = self.on_message
-        self.client.tls_set(ca_certs="/app/Eclipse-Ditto-MQTT-iwatch-SSL-OOP/mosquitto/config/ca.crt",
-                            certfile="/app/Eclipse-Ditto-MQTT-iwatch-SSL-OOP/mosquitto/config/client.crt",
-                            keyfile="/app/Eclipse-Ditto-MQTT-iwatch-SSL-OOP/mosquitto/config/client.key",
+        self.client.tls_set(ca_certs="/device/mosquitto/config/ca.crt",
+                            certfile="/device/mosquitto/config/client.crt",
+                            keyfile="/device/mosquitto/config/client.key",
                             tls_version=ssl.PROTOCOL_TLSv1_2)
         self.client.username_pw_set(self.username, self.password)
 
